@@ -267,3 +267,26 @@ None new.
 ### Testing
 - `verify_build.py` passed with 0 gradients, 0 emojis, 100% credentials, 100% valid links.
 - Synced to remote origin `main`.
+
+---
+
+## 2026-08-16 — Hostinger Production Deployment ZIP Package
+
+### User Request
+"ab isko hostinger ke file manager pe upload karne ke liye deployment ka zip file bana do"
+
+### Work Completed
+- Added `robots.txt` and `sitemap.xml` (SEO indexing for clean URLs).
+- Created a standalone, production-ready Hostinger deployment zip file: [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip) (1.05 MB).
+- Packed all 16 HTML pages, `css/style.css`, `js/app.js`, `.htaccess`, `logo.png`, `robots.txt`, and `sitemap.xml`.
+- Excluded development files (`.git`, `editing.md`, scratch scripts).
+- Added `*.zip` to `.gitignore`.
+
+### Files Created
+- `robots.txt`
+- `sitemap.xml`
+- `hyphenet-hostinger-deploy.zip`
+
+### Files Modified
+- `.gitignore`
+- `editing.md`
