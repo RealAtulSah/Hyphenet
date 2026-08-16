@@ -535,12 +535,15 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--dark-navy);
   color: #ffffff;
   overflow: hidden;
+  width: 100%;
 }
 
 .hero-slider-container {
   position: relative;
   min-height: 520px;
   display: flex;
+  width: 100%;
+  max-width: 100%;
 }
 
 .hero-slide {
@@ -551,7 +554,9 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 4rem 0;
+  width: 100%;
 }
 
 .hero-slide.active {
@@ -2468,6 +2473,11 @@ html {
    21. Comprehensive Mobile Responsive Breakpoints
    ========================================================================== */
 
+/* Top bar removed from HTML — hide any remnants */
+.top-bar {
+  display: none !important;
+}
+
 /* --- Tables & Scrollable Wrappers --- */
 .spec-matrix-wrapper,
 .spec-table-wrapper,
@@ -2499,7 +2509,7 @@ html {
     box-shadow: var(--shadow-xl);
     border-bottom: 3px solid var(--brand-blue);
     border-top: 1px solid var(--border-light);
-    max-height: calc(100vh - 120px);
+    max-height: calc(100vh - 80px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 999;
@@ -2597,6 +2607,10 @@ html {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
+  .subpage-sidebar {
+    position: static;
+  }
   
   .benefits-grid, .office-hubs-grid, .careers-grid, .blog-full-grid, .process-steps-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2609,6 +2623,15 @@ html {
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .metric-counter-box {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-stat-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* --- Tablets & Phablets (<= 768px) --- */
@@ -2617,27 +2640,9 @@ html {
     font-size: 14.5px;
   }
 
-  .top-bar-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-  }
-
-  .top-bar-left {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-  }
-
-  .top-bar-right {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 0.3rem;
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .page-hero {
@@ -2726,6 +2731,44 @@ html {
   .form-input {
     padding: 0.75rem 0.85rem;
   }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-card {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .slider-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .slider-arrow.prev {
+    left: 0.75rem;
+  }
+
+  .slider-arrow.next {
+    right: 0.75rem;
+  }
+
+  .query-form-card {
+    padding: 1.75rem;
+  }
+
+  .page-hero-actions {
+    flex-direction: column;
+  }
+
+  .page-hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* --- Mobile Phones (<= 640px) --- */
@@ -2733,9 +2776,18 @@ html {
   html {
     font-size: 14px;
   }
+
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
   
   .section-title {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
+  }
+
+  .section-desc {
+    font-size: 0.88rem;
   }
   
   .benefits-grid, .products-grid, .blog-grid, .values-grid, .footer-grid, .form-grid-2,
@@ -2743,12 +2795,24 @@ html {
     grid-template-columns: 1fr;
   }
   
-  .top-bar-left span:nth-child(n+3) {
-    display: none;
-  }
-  
   .phone-cta {
     display: none;
+  }
+
+  .hero-title {
+    font-size: 1.55rem;
+  }
+
+  .hero-desc {
+    font-size: 0.85rem;
+  }
+
+  .hero-card {
+    padding: 1.25rem;
+  }
+
+  .hero-spec-item {
+    font-size: 0.75rem;
   }
 
   .spec-matrix-header {
@@ -2757,7 +2821,7 @@ html {
     gap: 0.5rem;
   }
 
-  .modal-dialog {
+  .quote-modal-content {
     width: 95vw;
     margin: 1rem auto;
     padding: 1.25rem;
@@ -2782,6 +2846,80 @@ html {
     text-align: center;
     gap: 0.75rem;
   }
+
+  .footer-grid {
+    gap: 2rem;
+  }
+
+  .page-hero-title {
+    font-size: 1.5rem;
+  }
+
+  .page-hero-desc {
+    font-size: 0.85rem;
+  }
+
+  .page-content-section {
+    padding: 3rem 0;
+  }
+
+  .about-stat-row {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card-left {
+    padding: 1.25rem;
+  }
+
+  .metric-counter-value {
+    font-size: 2.25rem;
+  }
+
+  .career-card {
+    padding: 1.25rem;
+  }
+
+  .office-hub-card {
+    padding: 1.25rem;
+  }
+
+  .brand-logo-img {
+    height: 36px;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.62rem;
+  }
 }
 
+/* --- Very Small Phones (<= 380px) --- */
+@media (max-width: 380px) {
+  html {
+    font-size: 13px;
+  }
 
+  .hero-title {
+    font-size: 1.35rem;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+
+  .page-hero-title {
+    font-size: 1.3rem;
+  }
+
+  .btn-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .sidebar-card {
+    padding: 1rem;
+  }
+}
