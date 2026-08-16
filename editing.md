@@ -201,3 +201,42 @@ None.
 
 ### Recommended Next Step
 Site is production-ready with full animation polish. Optional: integrate real form backend (Formspree, Google Forms), add Google Analytics, or deploy to a custom domain.
+
+---
+
+## 2026-08-16 — UI Fixes: Top Bar Removal, Footer Credit, Hero Centering, Mobile CSS
+
+### User Request
+1. Remove the Top Announcement Bar from all pages.
+2. Replace footer text "Strict Zero-Gradient Design • 100% Verified Enterprise IT Rentals" with "Developed by Atul Sah" linking to realatulsah.github.io/site.
+3. Fix mobile responsive CSS.
+4. Fix hero slider section center alignment (was left-aligning on zoom out).
+
+### Work Completed
+- **Top Announcement Bar**: Removed from all 16 HTML files via batch script. Added `.top-bar { display: none !important; }` as CSS safety net.
+- **Footer Credit**: Replaced in all 16 HTML files with `Developed by <a href="https://realatulsah.github.io/site">Atul Sah</a>` (brand-green color, opens new tab).
+- **Hero Centering**: Added `width: 100%` to `.hero-slider-section`, `.hero-slider-container`, and `.hero-slide`. Added `justify-content: center` to `.hero-slide` to prevent left-alignment on wide viewports.
+- **Mobile Responsive CSS Overhaul**:
+  - Removed all obsolete `.top-bar` responsive rules.
+  - Added `.container` padding reduction at 768px and 640px breakpoints.
+  - Added new 380px breakpoint for very small phones.
+  - Fixed `.subpage-sidebar` static positioning on tablets.
+  - Added `.form-grid-2` single column at 768px.
+  - Added `.slider-arrow` smaller sizing on mobile.
+  - Added `.page-hero-actions` column layout on mobile.
+  - Added hero card/spec-item font reduction on phones.
+  - Fixed modal class from `.modal-dialog` to `.quote-modal-content`.
+  - Added logo/brand text size reduction on small phones.
+  - Added metric counter, career card, office hub card padding reduction.
+
+### Files Modified
+- All 16 HTML files (top-bar removed, footer updated)
+- `css/style.css` (hero centering, mobile responsive, top-bar hide)
+- `editing.md`
+
+### Testing
+- `verify_build.py` passed: 0 gradients, 0 emojis, 100% credentials, 100% valid links.
+- Pushed to GitHub (`1e615b2` on `main`).
+
+### Known Issues
+None new.
