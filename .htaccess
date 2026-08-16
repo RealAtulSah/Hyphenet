@@ -1,0 +1,75 @@
+# ==============================================================================
+# HYPHENET ENTERPRISES - APACHE / LITESPEED CONFIGURATION (.htaccess)
+# Clean URLs (Removes .html extension), Caching & Performance Optimizations
+# ==============================================================================
+
+# Disable directory browsing & enable MultiViews negotiation control
+Options -MultiViews -Indexes
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Redirect /index.html to root /
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.html [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # 2. External 301 Redirect: /page.html to clean URL /page (for SEO & URL bar)
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/([^.]+)\.html [NC]
+  RewriteRule ^ %1 [R=301,L]
+
+  # 3. Internal Rewrite: /page to /page.html (serves the HTML file silently)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+
+  # Fallback for relative paths without DOCUMENT_ROOT variable
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+</IfModule>
+
+# ==============================================================================
+# BROWSER CACHING & PERFORMANCE (Speed Optimization for Hostinger)
+# ==============================================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # HTML Documents (cached for 1 hour to allow quick content updates)
+  ExpiresByType text/html "access plus 1 hour"
+
+  # CSS & JavaScript
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # Media & Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Web Fonts
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+</IfModule>
+
+# GZIP / DEFLATE COMPRESSION
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# SECURITY HEADERS
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
