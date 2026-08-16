@@ -323,7 +323,7 @@ function initContactForm() {
 }
 
 /* ==========================================================================
-   10. Mobile Menu Toggle
+   10. Mobile Navigation & Dropdown Accordion System
    ========================================================================== */
 function initMobileNav() {
   const toggleBtn = document.getElementById('mobileMenuToggle');
@@ -331,30 +331,53 @@ function initMobileNav() {
 
   if (!toggleBtn || !navMenu) return;
 
-  toggleBtn.addEventListener('click', () => {
-    const isVisible = window.getComputedStyle(navMenu).display !== 'none';
-    if (isVisible) {
-      navMenu.style.display = 'none';
-    } else {
-      navMenu.style.display = 'flex';
-      navMenu.style.flexDirection = 'column';
-      navMenu.style.position = 'absolute';
-      navMenu.style.top = '100%';
-      navMenu.style.left = '0';
-      navMenu.style.right = '0';
-      navMenu.style.backgroundColor = '#ffffff';
-      navMenu.style.padding = '1rem';
-      navMenu.style.boxShadow = '0 10px 25px rgba(15, 39, 64, 0.15)';
-      navMenu.style.borderBottom = '2px solid var(--brand-blue)';
+  // Toggle main mobile drawer
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navMenu.classList.toggle('mobile-open');
+    toggleBtn.classList.toggle('active', isOpen);
+  });
+
+  // Handle dropdown toggle on mobile touch
+  const navItems = navMenu.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    const link = item.querySelector('.nav-link');
+    const dropdown = item.querySelector('.dropdown-menu');
+
+    if (link && dropdown) {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024) {
+          const isAlreadyOpen = item.classList.contains('dropdown-open');
+
+          // If not currently open, prevent default navigation and expand the accordion
+          if (!isAlreadyOpen) {
+            e.preventDefault();
+            navItems.forEach(other => {
+              if (other !== item) other.classList.remove('dropdown-open');
+            });
+            item.classList.add('dropdown-open');
+          }
+        }
+      });
     }
   });
 
-  // Close mobile nav when clicking a link
-  navMenu.querySelectorAll('a').forEach(link => {
+  // Close drawer on clicking direct child links (not parent categories)
+  navMenu.querySelectorAll('.dropdown-link, .nav-item:not(:has(.dropdown-menu)) .nav-link').forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= 1024) {
-        navMenu.style.display = 'none';
+        navMenu.classList.remove('mobile-open');
+        toggleBtn.classList.remove('active');
       }
     });
   });
+
+  // Close drawer on click outside
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 1024 && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+      navMenu.classList.remove('mobile-open');
+      toggleBtn.classList.remove('active');
+    }
+  });
 }
+
