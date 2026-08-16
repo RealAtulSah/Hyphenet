@@ -240,3 +240,30 @@ Site is production-ready with full animation polish. Optional: integrate real fo
 
 ### Known Issues
 None new.
+
+---
+
+## 2026-08-16 — Hostinger Deployment Config: Clean URLs (.htaccess)
+
+### User Request
+".htaccess wala file bana do taki url ke last me .html na likhe"
+
+### Work Completed
+- Created `.htaccess` in project root with Apache / LiteSpeed Rewrite rules:
+  - Automatically redirects direct `.html` file requests (e.g. `/laptops-rental.html`) to clean URLs (e.g. `/laptops-rental`) with 301 Permanent Redirect.
+  - Internally rewrites clean URLs (`/laptops-rental`) to serve the corresponding `.html` file (`laptops-rental.html`).
+  - Redirects `/index.html` to root `/`.
+  - Added browser caching headers (`mod_expires`) for HTML, CSS, JS, SVG, and images.
+  - Enabled Gzip compression (`mod_deflate`) for fast load times on Hostinger.
+  - Added essential security headers (`X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`).
+- Pushed `.htaccess` to GitHub repository (`d5e6e55` on `main`).
+
+### Files Created
+- `.htaccess`
+
+### Files Modified
+- `editing.md`
+
+### Testing
+- `verify_build.py` passed with 0 gradients, 0 emojis, 100% credentials, 100% valid links.
+- Synced to remote origin `main`.
