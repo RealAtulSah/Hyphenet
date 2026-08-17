@@ -1188,22 +1188,22 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label for="formName" class="form-label">Your Name *</label>
-              <input type="text" id="formName" class="form-input" placeholder="e.g. Rahul Sharma" required>
+              <input type="text" id="formName" name="name" class="form-input" placeholder="e.g. Rahul Sharma" required>
             </div>
             <div class="form-group">
               <label for="formEmail" class="form-label">Corporate Email Address *</label>
-              <input type="email" id="formEmail" class="form-input" placeholder="e.g. rahul@company.com" required>
+              <input type="email" id="formEmail" name="email" class="form-input" placeholder="e.g. rahul@company.com" required>
             </div>
           </div>
 
           <div class="form-grid-2">
             <div class="form-group">
               <label for="formPhone" class="form-label">Mobile Number *</label>
-              <input type="tel" id="formPhone" class="form-input" placeholder="e.g. +91 9876543210" required>
+              <input type="tel" id="formPhone" name="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
             </div>
             <div class="form-group">
               <label for="formProduct" class="form-label">What Equipment Are You Looking For? *</label>
-              <select id="formProduct" class="form-select" required>
+              <select id="formProduct" name="hardware_category" class="form-select" required>
                 <option value="">-- Please Select Hardware Category --</option>
                 <option value="Rental Laptops">Rental Laptops (Core i3/i5/i7/i9, Ryzen)</option>
                 <option value="Rental Desktops">Rental Commercial Desktops (SFF/Tower)</option>
@@ -1226,7 +1226,7 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label for="formLocation" class="form-label">Deployment Location / City *</label>
-              <select id="formLocation" class="form-select" required>
+              <select id="formLocation" name="deployment_city" class="form-select" required>
                 <option value="">-- Please Select Deployment City --</option>
                 <option value="Delhi (HQ)">Delhi (HQ - Nehru Place)</option>
                 <option value="Gurugram">Gurugram</option>
@@ -1239,7 +1239,7 @@
             </div>
             <div class="form-group">
               <label for="formDuration" class="form-label">Rental Duration Estimate</label>
-              <select id="formDuration" class="form-select">
+              <select id="formDuration" name="rental_duration" class="form-select">
                 <option value="Short Term (< 1 Month)">Short Term (1 to 4 Weeks - Events / Exams)</option>
                 <option value="Medium Term (1 - 6 Months)">Medium Term (1 to 6 Months)</option>
                 <option value="Long Term (6 - 12+ Months)">Long Term (6 to 12+ Months - Corporate)</option>
@@ -1249,7 +1249,7 @@
 
           <div class="form-group">
             <label for="formMessage" class="form-label">Specific Configuration Notes or Quantity (Optional)</label>
-            <textarea id="formMessage" class="form-textarea" rows="3" placeholder="e.g. Need 50 Core i7 Laptops with 16GB RAM for our Gurugram office starting next Monday..."></textarea>
+            <textarea id="formMessage" name="requirements_notes" class="form-textarea" rows="3" placeholder="e.g. Need 50 Core i7 Laptops with 16GB RAM for our Gurugram office starting next Monday..."></textarea>
           </div>
 
           <button type="submit" class="btn btn-green btn-lg" style="width: 100%;" id="submitFormBtn">
@@ -1516,23 +1516,23 @@
       <form id="modalQuoteForm">
         <div class="form-group">
           <label class="form-label">Hardware Selected</label>
-          <input type="text" id="modalProductInput" class="form-input" readonly style="font-weight: 700; color: var(--brand-blue);">
+          <input type="text" id="modalProductInput" name="hardware" class="form-input" readonly style="font-weight: 700; color: var(--brand-blue);">
         </div>
         <div class="form-group">
           <label class="form-label">Your Name *</label>
-          <input type="text" id="modalName" class="form-input" placeholder="e.g. Ananya Sen" required>
+          <input type="text" id="modalName" name="name" class="form-input" placeholder="e.g. Ananya Sen" required>
         </div>
         <div class="form-group">
           <label class="form-label">Corporate Email *</label>
-          <input type="email" id="modalEmail" class="form-input" placeholder="e.g. ananya@enterprise.com" required>
+          <input type="email" id="modalEmail" name="email" class="form-input" placeholder="e.g. ananya@enterprise.com" required>
         </div>
         <div class="form-group">
           <label class="form-label">Mobile Number *</label>
-          <input type="tel" id="modalPhone" class="form-input" placeholder="e.g. +91 9876543210" required>
+          <input type="tel" id="modalPhone" name="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
         </div>
         <div class="form-group">
           <label class="form-label">Required Quantity & City *</label>
-          <input type="text" id="modalCityQty" class="form-input" placeholder="e.g. 25 Units in Bengaluru" required>
+          <input type="text" id="modalCityQty" name="quantity_and_city" class="form-input" placeholder="e.g. 25 Units in Bengaluru" required>
         </div>
         <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 0.5rem;">Submit Quick Request &rarr;</button>
       </form>

@@ -210,23 +210,23 @@
             <form id="contactForm" style="display: flex; flex-direction: column; gap: 0.9rem;">
               <div class="form-group">
                 <label class="form-label">Selected Hardware</label>
-                <input type="text" class="form-input" value="Apple Mac Hardware Fleet" readonly style="font-weight: 700; color: var(--brand-blue);">
+                <input type="text" class="form-input" value="Apple Mac Hardware Fleet" readonly style="font-weight: 700; color: var(--brand-blue);" name="selected_hardware">
               </div>
               <div class="form-group">
                 <label class="form-label">Contact Name *</label>
-                <input type="text" class="form-input" placeholder="e.g. Vikram Malhotra" required>
+                <input type="text" name="name" class="form-input" placeholder="e.g. Rajesh Khurana" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Corporate Email *</label>
-                <input type="email" class="form-input" placeholder="e.g. vikram@studio.com" required>
+                <input type="email" name="email" class="form-input" placeholder="e.g. rajesh@enterprise.com" required>
               </div>
               <div class="form-group">
-                <label class="form-label">Phone Number *</label>
-                <input type="tel" class="form-input" placeholder="e.g. +91 9876543210" required>
+                <label class="form-label">Mobile Number *</label>
+                <input type="tel" name="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Required Mac Models & Quantity *</label>
-                <input type="text" class="form-input" placeholder="e.g. 15 MacBook Pro M3 in Bangalore" required>
+                <input type="text" name="quantity_and_city" class="form-input" placeholder="e.g. 15 MacBook Pro M3 in Bangalore" required>
               </div>
               <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 0.5rem;">Request Instant Quote &rarr;</button>
             </form>

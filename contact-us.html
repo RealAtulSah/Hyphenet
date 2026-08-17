@@ -155,19 +155,19 @@
             <form id="contactForm" style="display: flex; flex-direction: column; gap: 0.9rem;">
               <div class="form-group">
                 <label class="form-label">Full Name *</label>
-                <input type="text" class="form-input" placeholder="e.g. Rajesh Khurana" required>
+                <input type="text" name="name" class="form-input" placeholder="e.g. Rajesh Khurana" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Corporate Email *</label>
-                <input type="email" class="form-input" placeholder="e.g. rajesh@enterprise.com" required>
+                <input type="email" name="email" class="form-input" placeholder="e.g. rajesh@enterprise.com" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Phone / WhatsApp *</label>
-                <input type="tel" class="form-input" placeholder="e.g. +91 9876543210" required>
+                <input type="tel" name="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Hardware Needed *</label>
-                <select class="form-input" required>
+                <select name="hardware_needed" class="form-input" required>
                   <option value="">-- Select Category --</option>
                   <option value="Laptops">Laptops on Rent (Dell, HP, Lenovo)</option>
                   <option value="Desktops">Commercial Desktops & AIOs</option>
@@ -182,7 +182,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Deployment City & Qty *</label>
-                <input type="text" class="form-input" placeholder="e.g. 50 Units in Noida" required>
+                <input type="text" name="quantity_and_city" class="form-input" placeholder="e.g. 50 Units in Noida" required>
               </div>
               <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 0.5rem;">Submit Request &rarr;</button>
             </form>

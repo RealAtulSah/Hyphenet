@@ -292,8 +292,60 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   8. Instant Quote Modal (fade + scale)
+   8. Instant Quote Modal (Web3Forms Integrated)
    ========================================================================== */
+const WEB3FORMS_KEY = '7acce36c-cb21-437e-a09a-9df2571e970f';
+
+async function sendWeb3FormData(form, submitBtn, successEl, customSubject, onSuccessCallback) {
+  const originalBtnContent = submitBtn ? submitBtn.innerHTML : 'Submit';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px;">
+        <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+        <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"></path>
+      </svg>
+      Sending Proposal...
+    `;
+  }
+
+  const formData = new FormData(form);
+  formData.append('access_key', WEB3FORMS_KEY);
+  formData.append('from_name', 'Hyphenet Web Portal');
+  formData.append('subject', customSubject || `[Hyphenet Lead] ${document.title.split('|')[0].trim()}`);
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      form.reset();
+      form.style.display = 'none';
+      if (successEl) successEl.style.display = 'block';
+      if (onSuccessCallback) onSuccessCallback(true);
+    } else {
+      alert(result.message || 'Submission failed. Please call our sales team directly at +91 9354045878');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+      }
+      if (onSuccessCallback) onSuccessCallback(false);
+    }
+  } catch (error) {
+    console.error('Web3Forms Error:', error);
+    alert('Could not submit request. Please call us at +91 9354045878 or email sales@hyphenet.net');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnContent;
+    }
+    if (onSuccessCallback) onSuccessCallback(false);
+  }
+}
+
 function initQuoteModal() {
   const modal = document.getElementById('quoteModal');
   const closeBtn = document.getElementById('modalCloseBtn');
@@ -307,7 +359,14 @@ function initQuoteModal() {
   function openModal(productName = 'Enterprise Hardware') {
     if (productInput) productInput.value = productName;
     if (successMsg) successMsg.style.display = 'none';
-    if (modalForm) modalForm.style.display = 'block';
+    if (modalForm) {
+      modalForm.style.display = 'block';
+      const submitBtn = modalForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Submit Quick Request &rarr;';
+      }
+    }
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -339,15 +398,22 @@ function initQuoteModal() {
   if (modalForm) {
     modalForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      modalForm.style.display = 'none';
-      if (successMsg) successMsg.style.display = 'block';
-      setTimeout(closeModal, 3000);
+      const hardwareName = productInput ? productInput.value : 'Hardware';
+      const customerName = modalForm.querySelector('input[name="name"]')?.value || 'Client';
+      const subject = `[Hyphenet Instant Quote] ${hardwareName} - ${customerName}`;
+      const submitBtn = modalForm.querySelector('button[type="submit"]');
+
+      sendWeb3FormData(modalForm, submitBtn, successMsg, subject, (success) => {
+        if (success) {
+          setTimeout(closeModal, 3500);
+        }
+      });
     });
   }
 }
 
 /* ==========================================================================
-   9. Main Proposal Contact Form
+   9. Main Proposal Contact Form & Sidebar Form (Web3Forms Integrated)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -357,8 +423,23 @@ function initContactForm() {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    form.style.display = 'none';
-    if (successAlert) successAlert.style.display = 'block';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Determine dynamic subject line based on page / form content
+    let subject = `[Hyphenet Lead] ${document.title.split('|')[0].trim()}`;
+    const nameVal = form.querySelector('input[name="name"]')?.value || 'Client';
+    const roleVal = form.querySelector('select[name="role_applied"]')?.value;
+    const hardwareVal = form.querySelector('select[name="hardware_category"], select[name="hardware_needed"], input[name="selected_hardware"]')?.value;
+
+    if (roleVal) {
+      subject = `[Hyphenet Career Application] ${roleVal} - ${nameVal}`;
+    } else if (hardwareVal) {
+      subject = `[Hyphenet Quote Request] ${hardwareVal} - ${nameVal}`;
+    } else {
+      subject = `[Hyphenet Proposal Request] ${nameVal} (${document.title.split('|')[0].trim()})`;
+    }
+
+    sendWeb3FormData(form, submitBtn, successAlert, subject);
   });
 }
 

@@ -216,19 +216,19 @@
           <form id="contactForm" style="display: flex; flex-direction: column; gap: 1.1rem;">
             <div class="form-group">
               <label class="form-label">Full Name *</label>
-              <input type="text" class="form-input" placeholder="e.g. Siddharth Verma" required>
+              <input type="text" name="name" class="form-input" placeholder="e.g. Siddharth Verma" required>
             </div>
             <div class="form-group">
               <label class="form-label">Email Address *</label>
-              <input type="email" class="form-input" placeholder="e.g. siddharth@gmail.com" required>
+              <input type="email" name="email" class="form-input" placeholder="e.g. siddharth@gmail.com" required>
             </div>
             <div class="form-group">
               <label class="form-label">Mobile Number (WhatsApp Enabled) *</label>
-              <input type="tel" class="form-input" placeholder="e.g. +91 9876543210" required>
+              <input type="tel" name="phone" class="form-input" placeholder="e.g. +91 9876543210" required>
             </div>
             <div class="form-group">
               <label class="form-label">Role Applying For *</label>
-              <select class="form-input" required>
+              <select name="role_applied" class="form-input" required>
                 <option value="">-- Select Position --</option>
                 <option value="Server Engineer">Senior Enterprise Server & Storage Engineer</option>
                 <option value="Sales Manager">B2B Corporate IT Sales & Leasing Manager</option>
@@ -239,7 +239,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Current City & Experience Summary *</label>
-              <textarea class="form-input" rows="3" placeholder="e.g. Based in Delhi NCR, 4 years experience in Dell server maintenance and VMware ESXi setup..." required></textarea>
+              <textarea name="city_and_experience" class="form-input" rows="3" placeholder="e.g. Based in Delhi NCR, 4 years experience in Dell server maintenance and VMware ESXi setup..." required></textarea>
             </div>
             <button type="submit" class="btn btn-green btn-lg" style="width: 100%;">Submit Job Application &rarr;</button>
           </form>
