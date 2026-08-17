@@ -471,6 +471,25 @@ In the previous transition implementation, helper class `.slide-from-right` (`tr
 - `hyphenet-hostinger-deploy.zip`
 - `editing.md`
 
+---
+
+## 2026-08-17 — Cache Busting Version Tags for CSS & JS
+
+### Problem Identified
+On Hostinger live production (`hyphenet.net`), Apache/LiteSpeed `.htaccess` rules set `ExpiresByType text/css "access plus 1 year"`. Browsers cached old `css/style.css` and `js/app.js` files, causing uploaded layout and padding fixes not to reflect immediately for live visitors without hard reload.
+
+### Work Completed
+- Added cache-busting version query string (`href="css/style.css?v=1.2"` and `src="js/app.js?v=1.2"`) across all 16 HTML files.
+- Forces all browsers, mobile devices, and proxy caches to immediately fetch the latest CSS stylesheet and JavaScript bundle.
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip) (~1.39 MB).
+- Pushed changes to GitHub repository (`26378e6` on `main`).
+
+### Files Modified
+- All 16 HTML files
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
+
 
 
 
