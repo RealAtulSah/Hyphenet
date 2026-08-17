@@ -538,12 +538,19 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.hero-slider-section .container {
+  padding-left: 3.75rem;
+  padding-right: 3.75rem;
+}
+
 .hero-slider-container {
   position: relative;
-  min-height: 520px;
+  min-height: 540px;
   display: flex;
   width: 100%;
   max-width: 100%;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .hero-slide {
@@ -551,55 +558,82 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.95) translateX(60px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 0;
+  padding: 4.5rem 0;
   width: 100%;
+  pointer-events: none;
 }
 
 .hero-slide.active {
   opacity: 1;
   visibility: visible;
   position: relative;
+  transform: scale(1) translateX(0);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.hero-slide.slide-from-left {
+  transform: scale(0.95) translateX(-60px);
+}
+
+.hero-slide.slide-from-right {
+  transform: scale(0.95) translateX(60px);
+}
+
+.hero-slide.exit-left {
+  transform: scale(0.95) translateX(-60px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-slide.exit-right {
+  transform: scale(0.95) translateX(60px);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .hero-slide.active .hero-badge {
-  animation: heroFadeUp 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroMorphFade 0.65s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-slide.active .hero-title {
-  animation: heroFadeUp 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroMorphFade 0.7s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-slide.active .hero-desc {
-  animation: heroFadeUp 0.6s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroMorphFade 0.75s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-slide.active .hero-actions {
-  animation: heroFadeUp 0.6s 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroMorphFade 0.75s 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-slide.active .hero-card {
-  animation: heroCardIn 0.7s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroCardMorphIn 0.8s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes heroFadeUp {
+@keyframes heroMorphFade {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes heroCardIn {
+@keyframes heroCardMorphIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.96);
+    transform: translateY(32px) scale(0.93);
   }
   to {
     opacity: 1;
@@ -2674,6 +2708,11 @@ html {
 
   .hero-slider-container {
     min-height: auto;
+  }
+
+  .hero-slider-section .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .hero-slide {

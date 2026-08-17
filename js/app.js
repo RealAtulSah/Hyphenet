@@ -69,7 +69,7 @@ function initStickyHeader() {
 }
 
 /* ==========================================================================
-   2. Hero Carousel (5 Dynamic Slides)
+   2. Hero Carousel (5 Dynamic Slides — Morph Transition & 4s Auto-Swipe)
    ========================================================================== */
 function initHeroSlider() {
   const slides = document.querySelectorAll('.hero-slide');
@@ -82,42 +82,77 @@ function initHeroSlider() {
 
   let currentIndex = 0;
   let timer = null;
+  let isTransitioning = false;
 
-  function showSlide(index) {
-    if (index < 0) index = slides.length - 1;
-    if (index >= slides.length) index = 0;
-    currentIndex = index;
+  function showSlide(newIndex, direction = 'next') {
+    if (isTransitioning) return;
+    if (newIndex < 0) newIndex = slides.length - 1;
+    if (newIndex >= slides.length) newIndex = 0;
+    if (newIndex === currentIndex) return;
 
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === currentIndex);
+    isTransitioning = true;
+    const oldSlide = slides[currentIndex];
+    const newSlide = slides[newIndex];
+
+    // Clean up animation classes
+    slides.forEach((s) => {
+      s.classList.remove('slide-from-left', 'slide-from-right', 'exit-left', 'exit-right');
     });
+
+    if (direction === 'next') {
+      oldSlide.classList.add('exit-left');
+      newSlide.classList.add('slide-from-right');
+    } else {
+      oldSlide.classList.add('exit-right');
+      newSlide.classList.add('slide-from-left');
+    }
+
+    // Force browser reflow to apply starting transform
+    void newSlide.offsetWidth;
+
+    oldSlide.classList.remove('active');
+    newSlide.classList.add('active');
 
     dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
+      dot.classList.toggle('active', i === newIndex);
     });
+
+    currentIndex = newIndex;
+
+    setTimeout(() => {
+      isTransitioning = false;
+      slides.forEach((s, i) => {
+        if (i !== currentIndex) {
+          s.classList.remove('active', 'slide-from-left', 'slide-from-right', 'exit-left', 'exit-right');
+        }
+      });
+    }, 750);
   }
 
   function startAutoPlay() {
     stopAutoPlay();
     timer = setInterval(() => {
-      showSlide(currentIndex + 1);
-    }, 5500);
+      showSlide(currentIndex + 1, 'next');
+    }, 4000); // 4 Seconds Auto-Swipe
   }
 
   function stopAutoPlay() {
-    if (timer) clearInterval(timer);
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
   }
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      showSlide(currentIndex - 1);
+      showSlide(currentIndex - 1, 'prev');
       startAutoPlay();
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      showSlide(currentIndex + 1);
+      showSlide(currentIndex + 1, 'next');
       startAutoPlay();
     });
   }
@@ -125,36 +160,103 @@ function initHeroSlider() {
   dots.forEach(dot => {
     dot.addEventListener('click', (e) => {
       const targetIndex = parseInt(e.currentTarget.getAttribute('data-index'), 10);
-      showSlide(targetIndex);
+      const dir = targetIndex >= currentIndex ? 'next' : 'prev';
+      showSlide(targetIndex, dir);
       startAutoPlay();
     });
   });
 
-  // Touch swipe support for hero slider
+  // Touch Swipe & Drag Controller (Smooth Left / Right Gestures)
   if (container) {
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const swipeThreshold = 50;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let isHorizontalGesture = false;
+    const threshold = 40; // minimum swipe distance
 
-    container.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
+    function onGestureStart(clientX, clientY) {
+      startX = clientX;
+      startY = clientY;
+      currentX = clientX;
+      isDragging = true;
+      isHorizontalGesture = false;
+      stopAutoPlay();
+    }
 
-    container.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          showSlide(currentIndex + 1);
-        } else {
-          showSlide(currentIndex - 1);
+    function onGestureMove(clientX, clientY) {
+      if (!isDragging) return;
+      currentX = clientX;
+      const diffX = currentX - startX;
+      const diffY = clientY - startY;
+
+      if (!isHorizontalGesture) {
+        if (Math.abs(diffX) > 8 || Math.abs(diffY) > 8) {
+          if (Math.abs(diffX) > Math.abs(diffY)) {
+            isHorizontalGesture = true;
+          } else {
+            isDragging = false; // vertical scroll, do not intercept
+          }
         }
-        startAutoPlay();
+      }
+    }
+
+    function onGestureEnd() {
+      if (isDragging && isHorizontalGesture) {
+        const diffX = startX - currentX;
+        if (Math.abs(diffX) >= threshold) {
+          if (diffX > 0) {
+            showSlide(currentIndex + 1, 'next'); // Swipe Left -> Next Slide
+          } else {
+            showSlide(currentIndex - 1, 'prev'); // Swipe Right -> Prev Slide
+          }
+        }
+      }
+
+      isDragging = false;
+      isHorizontalGesture = false;
+      startAutoPlay();
+    }
+
+    // Touch events for mobile phones and tablets
+    container.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        onGestureStart(e.touches[0].clientX, e.touches[0].clientY);
       }
     }, { passive: true });
 
+    container.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1) {
+        onGestureMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    container.addEventListener('touchend', onGestureEnd, { passive: true });
+    container.addEventListener('touchcancel', onGestureEnd, { passive: true });
+
+    // Mouse drag support for desktop
+    container.addEventListener('mousedown', (e) => {
+      if (e.button === 0) { // left click
+        onGestureStart(e.clientX, e.clientY);
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        onGestureMove(e.clientX, e.clientY);
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        onGestureEnd();
+      }
+    });
+
     container.addEventListener('mouseenter', stopAutoPlay);
-    container.addEventListener('mouseleave', startAutoPlay);
+    container.addEventListener('mouseleave', () => {
+      if (!isDragging) startAutoPlay();
+    });
   }
 
   startAutoPlay();
