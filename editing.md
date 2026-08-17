@@ -364,3 +364,24 @@ Provided Web3Forms Access Key: `7acce36c-cb21-437e-a09a-9df2571e970f`
 - `hyphenet-hostinger-deploy.zip`
 - `editing.md`
 
+---
+
+## 2026-08-17 — WhatsApp Icon Redesign & Non-Obstructive Placement
+
+### User Request
+"bottom right corner pe WhatsApp ka icon sahi nhi hai aur iss icon se mera naam dakk ja raha hai. batao ye kitna galat baat hai."
+
+### Work Completed
+- **Official WhatsApp SVG Icon**: Replaced the broken/distorted path across all 16 HTML files with the official crisp, filled WhatsApp logo SVG.
+- **Non-Obstructive Left Positioning**: Moved the floating WhatsApp CTA button from `right: 1.75rem` to `left: 2rem; bottom: 2rem; right: auto;` in `css/style.css` (and `left: 1.25rem; bottom: 1.25rem` on mobile).
+- **Zero Collision with Footer Credits**: "Developed by Atul Sah" on the bottom-right is now 100% visible, unobstructed, and prominently readable on all screen sizes.
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip).
+- Pushed changes to GitHub repository (`ab34fce` on `main`).
+
+### Files Modified
+- All 16 HTML files (WhatsApp SVG icon updated)
+- `css/style.css` (WhatsApp button position & SVG styles)
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
+
