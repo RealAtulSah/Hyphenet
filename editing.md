@@ -429,6 +429,28 @@ Provided Web3Forms Access Key: `7acce36c-cb21-437e-a09a-9df2571e970f`
 - `hyphenet-hostinger-deploy.zip`
 - `editing.md`
 
+---
+
+## 2026-08-17 — Fix: 100% Identical Left Padding & Alignment Across All Hero Slides
+
+### Bug Identified
+In the previous transition implementation, helper class `.slide-from-right` (`transform: scale(0.95) translateX(60px)`) had identical selector specificity to `.hero-slide.active` and was defined later in CSS. As a result, subsequent slides (Slide 2, 3, etc.) retained `translateX(60px)` while active, making their left padding appear 60px larger than Slide 1 (which loaded with plain `.active` at `translateX(0)`).
+
+### Work Completed
+- Fixed CSS transition hierarchy: `.hero-slide.active` now enforces `transform: scale(1) translateX(0) !important;` and `position: relative !important;`.
+- Separated temporary entry/exit classes (`entering-from-left`, `entering-from-right`, `exiting-left`, `exiting-right`) so they are cleanly removed once active.
+- Unified container width (`max-width: 1280px; margin: 0 auto; padding: 0 3rem;`) across `.hero-slider-section .container`.
+- Guaranteed that all 5 slides align at the exact same pixel-perfect left boundary when active.
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip).
+- Pushed changes to GitHub repository (`326a449` on `main`).
+
+### Files Modified
+- `css/style.css`
+- `js/app.js`
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
+
 
 
 
