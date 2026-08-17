@@ -1742,9 +1742,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .floating-whatsapp-btn {
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  right: auto;
+  bottom: 5.5rem;
+  right: 2rem;
+  left: auto;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -2845,9 +2845,9 @@ html {
   .floating-whatsapp-btn {
     width: 48px;
     height: 48px;
-    bottom: 1.25rem;
-    left: 1.25rem;
-    right: auto;
+    bottom: 4.5rem;
+    right: 1.25rem;
+    left: auto;
   }
   
   .floating-whatsapp-btn svg {
