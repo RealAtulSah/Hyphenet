@@ -338,3 +338,29 @@ Provided Web3Forms Access Key: `7acce36c-cb21-437e-a09a-9df2571e970f`
 - `verify_build.py` passed with 0 gradients, 0 emojis, 100% credentials, 100% valid links.
 - Verified all form field `name` attributes via inspection script.
 
+---
+
+## 2026-08-17 — Updated Careers Positions to 8 Exact Roles
+
+### User Request
+"careers.html itna hi posion chahiye" (provided screenshot of 8 specific roles)
+
+### Work Completed
+- Updated [`careers.html`](file:///e:/professional%20code/Rental-main/careers.html) with the exact 8 positions requested:
+  1. `IT Support Engineer`
+  2. `Field Engineer`
+  3. `Network Engineer`
+  4. `HR`
+  5. `Accountant`
+  6. `Sales`
+  7. `Admin`
+  8. `Repair Hardware (Laptop / Desktop)`
+- Updated the **Current Vacancies Cards Grid** (8 detailed role cards) and the **Application Form Dropdown** (`<select name="role_applied">`).
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip).
+- Pushed changes to GitHub repository (`636817f` on `main`).
+
+### Files Modified
+- `careers.html`
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
