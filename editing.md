@@ -384,4 +384,24 @@ Provided Web3Forms Access Key: `7acce36c-cb21-437e-a09a-9df2571e970f`
 - `hyphenet-hostinger-deploy.zip`
 - `editing.md`
 
+---
+
+## 2026-08-17 — WhatsApp Floating Button: Elevated Right Side Placement
+
+### User Request
+"whatsapp button ko right me hi rakho bottom se thora upper kar dena"
+
+### Work Completed
+- Adjusted `.floating-whatsapp-btn` to remain on the **Right Side** while being **Elevated** (`bottom: 5.5rem; right: 2rem; left: auto;` on desktop and `bottom: 4.5rem; right: 1.25rem; left: auto;` on mobile).
+- Ensures the button floats well above the bottom footer bar, keeping "Developed by Atul Sah" 100% visible and unblocked.
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip).
+- Pushed changes to GitHub repository (`ab5c864` on `main`).
+
+### Files Modified
+- `css/style.css`
+- All 16 HTML files (comment updated)
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
+
 
