@@ -450,6 +450,28 @@ In the previous transition implementation, helper class `.slide-from-right` (`tr
 - `hyphenet-hostinger-deploy.zip`
 - `editing.md`
 
+---
+
+## 2026-08-17 — Set `favicon.png` as Official Site Favicon
+
+### User Request
+"favicon.png use this as favicon"
+
+### Work Completed
+- Updated all 16 HTML pages with `<link rel="icon" type="image/png" href="favicon.png">` and `<link rel="apple-touch-icon" href="favicon.png">`.
+- Added `favicon.png` to the deployment package build script.
+- Rebuilt [`hyphenet-hostinger-deploy.zip`](file:///e:/professional%20code/Rental-main/hyphenet-hostinger-deploy.zip) (~1.39 MB).
+- Pushed changes and asset to GitHub repository (`f575061` on `main`).
+
+### Files Created
+- `favicon.png` (tracked in git)
+
+### Files Modified
+- All 16 HTML files
+- `hyphenet-hostinger-deploy.zip`
+- `editing.md`
+
+
 
 
 
