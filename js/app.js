@@ -96,21 +96,22 @@ function initHeroSlider() {
 
     // Clean up animation classes
     slides.forEach((s) => {
-      s.classList.remove('slide-from-left', 'slide-from-right', 'exit-left', 'exit-right');
+      s.classList.remove('entering-from-left', 'entering-from-right', 'exiting-left', 'exiting-right');
     });
 
     if (direction === 'next') {
-      oldSlide.classList.add('exit-left');
-      newSlide.classList.add('slide-from-right');
+      oldSlide.classList.add('exiting-left');
+      newSlide.classList.add('entering-from-right');
     } else {
-      oldSlide.classList.add('exit-right');
-      newSlide.classList.add('slide-from-left');
+      oldSlide.classList.add('exiting-right');
+      newSlide.classList.add('entering-from-left');
     }
 
     // Force browser reflow to apply starting transform
     void newSlide.offsetWidth;
 
     oldSlide.classList.remove('active');
+    newSlide.classList.remove('entering-from-left', 'entering-from-right');
     newSlide.classList.add('active');
 
     dots.forEach((dot, i) => {
@@ -123,10 +124,10 @@ function initHeroSlider() {
       isTransitioning = false;
       slides.forEach((s, i) => {
         if (i !== currentIndex) {
-          s.classList.remove('active', 'slide-from-left', 'slide-from-right', 'exit-left', 'exit-right');
+          s.classList.remove('active', 'exiting-left', 'exiting-right', 'entering-from-left', 'entering-from-right');
         }
       });
-    }, 750);
+    }, 650);
   }
 
   function startAutoPlay() {
